@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class BlindCornerVANET {
     
     
-    protected static final Queue rebQueue = new LinkedList();
+    protected static final Queue<String> rebQueue = new LinkedList();
     private static final Map<String,Car> neighborList = new HashMap() ;
     private static Car myCar ;
     private static String myIP ;
@@ -79,19 +79,22 @@ public class BlindCornerVANET {
         double positionX = Double.parseDouble(s[3]) ;
         double positionY = Double.parseDouble(s[4]) ;
         
-        if(neighborList.containsKey(IPAddress)){
-            Car car = neighborList.get(IPAddress);
+        if(neighborList.containsKey(carID)){
+            Car car = neighborList.get(carID);
             if (car.isNewer(seqNumber)){
                 //Update position
                 car.updatePosition(positionX, positionY,seqNumber);
+                //Push rebroadcastable message
+                rebQueue.add(message);
             }
             else {
+                //Detect older message!
                 System.out.println("Drop older message " + seqNumber +" from "+IPAddress );
             }
         }else{
             //Found new car!
             Car car = new Car(carName, carID, positionX, positionY, seqNumber);
-            neighborList.put(IPAddress, car);
+            neighborList.put(carID, car);
         }
     }
     protected static String sendBeacon(){
