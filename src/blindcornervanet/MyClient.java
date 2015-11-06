@@ -38,10 +38,10 @@ public class MyClient extends Thread {
             while(true){
                 //System.out.print("Enter Message: ");
                 Date date = new Date();
-                String sentence = date.toString();
-                sendData = sentence.getBytes();         
+                String message = BlindCornerVANET.sendBeacon();
+                sendData = message.getBytes();         
 
-                System.out.println ("Send Beacon " + sendData.length + " bytes Message: " + sentence);
+                System.out.println ("Send Beacon " + sendData.length + " bytes Message: " + message);
                 DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, targetPort); 
                 
                 clientSocket.send(sendPacket);

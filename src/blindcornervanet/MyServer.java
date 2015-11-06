@@ -11,13 +11,13 @@ import java.net.*;
  * @author munix
  */
 public class MyServer extends Thread {
-    String myIP ;
+    InetAddress myIP ;
     DatagramSocket serverSocket ; 
     byte[] receiveData = new byte[1024]; 
     byte[] sendData  = new byte[1024];
     public MyServer(int port , String myIP){
         try{  
-            this.myIP = myIP ;
+            this.myIP = InetAddress.getByName(myIP); 
             serverSocket = new DatagramSocket(port); 
         }catch(Exception e){
             System.out.println(e);
@@ -35,15 +35,16 @@ public class MyServer extends Thread {
 
               serverSocket.receive(receivePacket); 
              
-              String sentence = new String(receivePacket.getData()); 
+              String message = new String(receivePacket.getData()); 
 
               InetAddress IPAddress = receivePacket.getAddress(); 
 
               int port = receivePacket.getPort(); 
-
-              if(!myIP.equals(IPAddress))
+              
+              if(!myIP.toString().equals(IPAddress.toString()))
               {
-                  System.out.println ("Receive Beacon From: " + IPAddress + ":" + port + " Message: " + sentence);
+                  System.out.println ("Receive Beacon From: " + IPAddress + ":" + port + " Message: " + message);
+                  BlindCornerVANET.updateNeighborPosition(IPAddress.toString(),message);
               }
             }
         } catch (Exception e) {
