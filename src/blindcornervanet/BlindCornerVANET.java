@@ -30,6 +30,8 @@ public class BlindCornerVANET {
     
     public static void main(String[] args) {
         //Initiation
+        blindcornervanet.GUI.simulationGUI GUI = new blindcornervanet.GUI.simulationGUI(neighborList);
+        GUI.setVisible(true);
         init() ;
         
         // Processing Broadcast Address
