@@ -20,9 +20,9 @@ import java.util.Scanner;
 public class BlindCornerVANET {
     
     
-    protected static final Queue<String> rebQueue = new LinkedList();
+    //protected static final Queue<String> rebQueue = new LinkedList();
     private static final Map<String,Car> neighborList = new HashMap() ;
-    private static Car myCar ;
+    protected static Car myCar ;
     private static String myIP ;
     private static int port ;
     /**
@@ -55,7 +55,7 @@ public class BlindCornerVANET {
         
         startVANET();
     }
-    protected static void updateNeighborPosition (String IPAddress , String message){
+    protected static boolean validateMessage (String IPAddress , String message){
         //Extract Message
         String[] s = message.split(" ");
         String carID = s[0] ;
@@ -69,8 +69,8 @@ public class BlindCornerVANET {
             if (car.isNewer(seqNumber)){
                 //Update position
                 car.updatePosition(positionX, positionY,seqNumber);
-                //Push rebroadcastable message
-                rebQueue.add(message);
+                
+                return true ;
             }
             else {
                 //Detect older message!
@@ -80,7 +80,9 @@ public class BlindCornerVANET {
             //Found new car!
             Car car = new Car(carName, carID, positionX, positionY, seqNumber);
             neighborList.put(carID, car);
+            return true;
         }
+        return false;
     }
     public static void startVANET(){
         // Processing Broadcast Address
@@ -88,7 +90,7 @@ public class BlindCornerVANET {
         
         // Bring Client and Server UP!
         System.out.println("Initiate Server... Bind IP :" + myIP + " Port :" + port);
-        MyServer myServer = new MyServer(port , myIP);
+        MyServer myServer = new MyServer(targetIP,port , myIP);
         System.out.println("Initiate Client... IP :" + targetIP + " Port :" + port);
         MyClient myClient = new MyClient(targetIP, port);
         

@@ -46,14 +46,6 @@ public class MyClient extends Thread {
                 
                 clientSocket.send(sendPacket);
                 
-                //Rebroadcast mechanism
-                if(!BlindCornerVANET.rebQueue.isEmpty()){
-                    String rebMessage = BlindCornerVANET.rebQueue.poll() ;
-                    sendData = rebMessage.getBytes();
-                    System.out.println ("Rebroadcast Beacon " + sendData.length + " bytes Message: " + rebMessage);
-                    sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, targetPort); 
-                    clientSocket.send(sendPacket);
-                }
                 Thread.sleep(1000);
 //
 //                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length); 

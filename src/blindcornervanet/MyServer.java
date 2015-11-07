@@ -15,9 +15,13 @@ public class MyServer extends Thread {
     DatagramSocket serverSocket ; 
     byte[] receiveData = new byte[1024]; 
     byte[] sendData  = new byte[1024];
-    public MyServer(int port , String myIP){
+    InetAddress targetIP ;
+    int port ;
+    public MyServer(String targetIP,int port , String myIP){
         try{  
+            this.targetIP = InetAddress.getByName(targetIP) ;
             this.myIP = InetAddress.getByName(myIP); 
+            this.port = port ;
             serverSocket = new DatagramSocket(port); 
         }catch(Exception e){
             System.out.println(e);
@@ -41,10 +45,18 @@ public class MyServer extends Thread {
 
               int port = receivePacket.getPort(); 
               
-              if(!myIP.toString().equals(IPAddress.toString()))
+              if(!BlindCornerVANET.myCar.carID.equals(message.split(" ")[0] ) && !myIP.toString().equals(IPAddress.toString()))
               {
+                  //Message is not mine!
                   System.out.println ("Receive Beacon From: " + IPAddress + ":" + port + " Message: " + message);
-                  BlindCornerVANET.updateNeighborPosition(IPAddress.toString(),message);
+                  boolean mustReb = BlindCornerVANET.validateMessage(IPAddress.toString(),message);
+                  if(mustReb){
+                    String rebMessage = message ;
+                    sendData = rebMessage.getBytes();
+                    System.out.println ("Rebroadcast Beacon " + sendData.length + " bytes Message: " + rebMessage);
+                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, targetIP, this.port); 
+                    serverSocket.send(sendPacket);
+                  }
               }
             }
         } catch (Exception e) {

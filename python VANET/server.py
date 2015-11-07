@@ -22,17 +22,18 @@ while True:
 	seqNumber = data[2]
 	carName = data[1]
 	if messageID != myID:
-		print "Receive Beacon From: ",addr[0],":",addr[1]," Message: ", message
+#		print "Receive Beacon From: ",addr[0],":",addr[1]," Message: ", message
 		if neighborDict.has_key(messageID):
 			if neighborDict[messageID] >= seqNumber:
-				print "Drop older message from ",messageID," seqNumber : ",seqNumber
+#				print "Drop older message from ",messageID," seqNumber : ",seqNumber
+				x= 1
 			else:
 				neighborDict[messageID] = int(seqNumber)
 				#Rebroadcast Message
-				print "Rebroadcast ", message
+#				print "Rebroadcast ", message
 				sock.sendto(message,(UDP_BROADCAST_IP,UDP_PORT))
 		else:
 			#Found new neighbor!
-			print "New neighbor ID: ",messageID," Name: ",carName
+#			print "New neighbor ID: ",messageID," Name: ",carName
 			neighborDict[messageID] = int(seqNumber)
 			
