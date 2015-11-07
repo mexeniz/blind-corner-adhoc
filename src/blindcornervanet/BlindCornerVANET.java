@@ -34,6 +34,7 @@ public class BlindCornerVANET {
         System.out.println("Start VANET App");
         Registration reg = new Registration();
         reg.setVisible(true);
+        SFX.notiSound.playStartup();
     }
     private static String getBroadcastAddress(String myIP){
         int i = myIP.lastIndexOf('.');
@@ -94,6 +95,7 @@ public class BlindCornerVANET {
         System.out.println("Initiate Client... IP :" + targetIP + " Port :" + port);
         MyClient myClient = new MyClient(targetIP, port);
         
+        SFX.notiSound.playVANET();
         
         System.out.println("Start Client...");
         myClient.start();
