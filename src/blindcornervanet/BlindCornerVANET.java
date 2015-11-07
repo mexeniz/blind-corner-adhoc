@@ -5,6 +5,7 @@
  */
 package blindcornervanet;
 
+import GUI.Registration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -30,45 +31,29 @@ public class BlindCornerVANET {
     
     public static void main(String[] args) {
         //Initiation
-        init() ;
-        
-        // Processing Broadcast Address
-        String targetIP = getBroadcastAddress(myIP);
-        
-        // Bring Client and Server UP!
-        System.out.println("Initiate Server... Bind IP :" + myIP + " Port :" + port);
-        MyServer myServer = new MyServer(port , myIP);
-        System.out.println("Initiate Client... IP :" + targetIP + " Port :" + port);
-        MyClient myClient = new MyClient(targetIP, port);
-        
-        
-        System.out.println("Start Client...");
-        myClient.start();
-        System.out.println("Start Server...");
-        myServer.start();
+        System.out.println("Start VANET App");
+        Registration reg = new Registration();
+        reg.setVisible(true);
     }
     private static String getBroadcastAddress(String myIP){
         int i = myIP.lastIndexOf('.');
         String bAddress = myIP.substring(0,i+1)+"255";
         return bAddress;
     }
-    private static void init(){
+    public static void init(String setMyIP , int setPort , String setName){
         System.out.println("Initiate VANET \n >> Simple Flooding <<");
-        Scanner kb = new Scanner(System.in);
         
         // Initiate Network Parameter
-        System.out.print("Insert my IP :");
-        myIP = kb.nextLine();
-        System.out.print("Insert Port :");
-        port = kb.nextInt();
+        myIP = setMyIP;
+        port = setPort;
         
         //Initiate myCar Parameter
-        System.out.print("Insert your name :");
-        String name = kb.next() ;
         int i = myIP.lastIndexOf('.');
         String id = myIP.substring(i+1);
         
-        myCar = new Car(name ,id , 0);
+        myCar = new Car(setName ,id , 0);
+        
+        startVANET();
     }
     protected static void updateNeighborPosition (String IPAddress , String message){
         //Extract Message
@@ -96,6 +81,22 @@ public class BlindCornerVANET {
             Car car = new Car(carName, carID, positionX, positionY, seqNumber);
             neighborList.put(carID, car);
         }
+    }
+    public static void startVANET(){
+        // Processing Broadcast Address
+        String targetIP = getBroadcastAddress(myIP);
+        
+        // Bring Client and Server UP!
+        System.out.println("Initiate Server... Bind IP :" + myIP + " Port :" + port);
+        MyServer myServer = new MyServer(port , myIP);
+        System.out.println("Initiate Client... IP :" + targetIP + " Port :" + port);
+        MyClient myClient = new MyClient(targetIP, port);
+        
+        
+        System.out.println("Start Client...");
+        myClient.start();
+        System.out.println("Start Server...");
+        myServer.start();
     }
     protected static String sendBeacon(){
         return myCar.sendBeacon();
