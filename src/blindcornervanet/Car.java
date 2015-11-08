@@ -12,37 +12,52 @@ import java.util.ArrayList;
  * @author ASUS
  */
 public class Car {
-    protected String name ;
-    protected String carID ;
-    protected double positionX ;
-    protected double positionY ;
+
+    protected String name;
+    protected String carID;
+    protected int positionX;
+    protected int positionY;
     protected int seqNumber;
-    
-    public Car(String name , String carID ,int seqNumber){
-        this.name = name ;
-        this.carID = carID ;
-        this.positionX = 0.0 ;
-        this.positionY = 0.0 ;
-        this.seqNumber = 0 ;
+
+    public Car(String name, String carID, int seqNumber) {
+        this.name = name;
+        this.carID = carID;
+        this.positionX = 0;
+        this.positionY = 0;
+        this.seqNumber = 0;
     }
-    public Car(String name , String carID , double positionX , double positionY , int seqNumber){
-        this.name = name ;
-        this.carID = carID ;
-        this.positionX = positionX  ;
-        this.positionY = positionY ;
-        this.seqNumber = seqNumber ;
-    }
-    public boolean isNewer(int seqNumber){
-        return seqNumber > this.seqNumber ;
-    }
-    public void updatePosition(double positionX , double positionY,int newSeqNumber){
+
+    public Car(String name, String carID, int positionX, int positionY, int seqNumber) {
+        this.name = name;
+        this.carID = carID;
         this.positionX = positionX;
         this.positionY = positionY;
-        this.seqNumber = newSeqNumber ;
+        this.seqNumber = seqNumber;
     }
-    public String sendBeacon(){
-        String message = carID+" "+name+" "+seqNumber+" "+positionX+" "+positionY;
+
+    public boolean isNewer(int seqNumber) {
+        return seqNumber > this.seqNumber;
+    }
+
+    public void updatePosition(int positionX, int positionY) {
+        this.positionX = positionX;
+        this.positionY = positionY;
+        //this.seqNumber = newSeqNumber;
+    }
+    public void updatePosition(int positionX, int positionY , int newSeqNumber) {
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.seqNumber = newSeqNumber;
+    }
+    public String sendBeacon() {
+        String message = carID + " " + name + " " + seqNumber + " " + positionX + " " + positionY;
         seqNumber++;
-        return message ;
+        return message;
+    }
+    public int getPositionX(){
+        return this.positionX;
+    }
+    public int getPositionY(){
+        return this.positionY;
     }
 }

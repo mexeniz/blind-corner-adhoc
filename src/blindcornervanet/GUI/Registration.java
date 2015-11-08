@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package blindcornervanet.GUI;
+
 import blindcornervanet.BlindCornerVANET;
+
 /**
  *
  * @author munix
@@ -14,8 +16,9 @@ public class Registration extends javax.swing.JFrame {
     /**
      * Creates new form Registration
      */
-    boolean jTextField1FirstFocus = true ;
-    boolean jTextField2FirstFocus = true ;
+    boolean jTextField1FirstFocus = true;
+    boolean jTextField2FirstFocus = true;
+
     public Registration() {
         initComponents();
     }
@@ -308,13 +311,13 @@ public class Registration extends javax.swing.JFrame {
         String name = jTextField1.getText();
         String IPAddress = jTextField2.getText();
         int port = Integer.parseInt(jTextField3.getText());
-        System.out.println("Name : "+name + "\nIPAddress : "+IPAddress+"\nport : "+port);
-        BlindCornerVANET.init(IPAddress,port,name);
+        System.out.println("Name : " + name + "\nIPAddress : " + IPAddress + "\nport : " + port);
+        BlindCornerVANET.init(IPAddress, port, name);
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
@@ -322,24 +325,22 @@ public class Registration extends javax.swing.JFrame {
         String name = jTextField1.getText();
         String IPAddress = jTextField2.getText();
         int port = Integer.parseInt(jTextField3.getText());
-        System.out.println("Name : "+name + "\nIPAddress : "+IPAddress+"\nport : "+port);
-        BlindCornerVANET.init(IPAddress,port,name);
+        System.out.println("Name : " + name + "\nIPAddress : " + IPAddress + "\nport : " + port);
+        BlindCornerVANET.init(IPAddress, port, name);
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jTextField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusGained
         // TODO add your handling code here:
-        if(jTextField2FirstFocus)
-        {
-            jTextField2FirstFocus = false ;
+        if (jTextField2FirstFocus) {
+            jTextField2FirstFocus = false;
             jTextField2.setText("");
         }
     }//GEN-LAST:event_jTextField2FocusGained
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
         // TODO add your handling code here:
-        if(jTextField1FirstFocus)
-        {
-            jTextField1FirstFocus = false ;
+        if (jTextField1FirstFocus) {
+            jTextField1FirstFocus = false;
             jTextField1.setText("");
         }
     }//GEN-LAST:event_jTextField1FocusGained
@@ -350,8 +351,8 @@ public class Registration extends javax.swing.JFrame {
         String name = jTextField1.getText();
         String IPAddress = jTextField2.getText();
         int port = Integer.parseInt(jTextField3.getText());
-        System.out.println("Name : "+name + "\nIPAddress : "+IPAddress+"\nport : "+port);
-        BlindCornerVANET.init(IPAddress,port,name);
+        System.out.println("Name : " + name + "\nIPAddress : " + IPAddress + "\nport : " + port);
+        BlindCornerVANET.init(IPAddress, port, name);
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -365,8 +366,8 @@ public class Registration extends javax.swing.JFrame {
         String name = jTextField1.getText();
         String IPAddress = jTextField2.getText();
         int port = Integer.parseInt(jTextField3.getText());
-        System.out.println("Name : "+name + "\nIPAddress : "+IPAddress+"\nport : "+port);
-        BlindCornerVANET.init(IPAddress,port,name);
+        System.out.println("Name : " + name + "\nIPAddress : " + IPAddress + "\nport : " + port);
+        BlindCornerVANET.init(IPAddress, port, name);
         jButton1.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 

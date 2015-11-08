@@ -5,7 +5,8 @@
  */
 package blindcornervanet;
 
-import GUI.Registration;
+import blindcornervanet.GUI.Registration;
+import blindcornervanet.GUI.SimulationGUI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -25,6 +26,8 @@ public class BlindCornerVANET {
     protected static Car myCar ;
     private static String myIP ;
     private static int port ;
+    private static Registration reg ;
+    private static SimulationGUI sim ;
     /**
      * @param args the command line arguments
      */
@@ -32,7 +35,7 @@ public class BlindCornerVANET {
     public static void main(String[] args) {
         //Initiation
         System.out.println("Start VANET App");
-        Registration reg = new Registration();
+        reg = new Registration();
         reg.setVisible(true);
         SFX.notiSound.playStartup();
     }
@@ -52,7 +55,7 @@ public class BlindCornerVANET {
         int i = myIP.lastIndexOf('.');
         String id = myIP.substring(i+1);
         
-        myCar = new Car(setName ,id , 0);
+        myCar = new Car(setName ,id ,250,40, 0);
         
         startVANET();
     }
@@ -62,8 +65,8 @@ public class BlindCornerVANET {
         String carID = s[0] ;
         String carName = s[1] ;
         int seqNumber = Integer.parseInt(s[2]) ;
-        double positionX = Double.parseDouble(s[3]) ;
-        double positionY = Double.parseDouble(s[4]) ;
+        int positionX = Integer.parseInt(s[3]) ;
+        int positionY = Integer.parseInt(s[4]) ;
         
         if(neighborList.containsKey(carID)){
             Car car = neighborList.get(carID);
@@ -101,6 +104,15 @@ public class BlindCornerVANET {
         myClient.start();
         System.out.println("Start Server...");
         myServer.start();
+        
+        
+        sim = new SimulationGUI(neighborList,myCar);
+        sim.setVisible(false);
+        switchToMap();
+    }
+    private static void switchToMap(){
+        reg.setVisible(false);
+        sim.setVisible(true);
     }
     protected static String sendBeacon(){
         return myCar.sendBeacon();
