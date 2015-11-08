@@ -65,8 +65,8 @@ public class BlindCornerVANET {
         String carID = s[0] ;
         String carName = s[1] ;
         int seqNumber = Integer.parseInt(s[2]) ;
-        int positionX = Integer.parseInt(s[3]) ;
-        int positionY = Integer.parseInt(s[4]) ;
+        int positionX = Integer.parseInt(s[3].trim()) ;
+        int positionY = Integer.parseInt(s[4].trim()) ;
         
         if(neighborList.containsKey(carID)){
             Car car = neighborList.get(carID);
@@ -82,6 +82,7 @@ public class BlindCornerVANET {
             }
         }else{
             //Found new car!
+            SFX.notiSound.playNoti1();
             Car car = new Car(carName, carID, positionX, positionY, seqNumber);
             neighborList.put(carID, car);
             return true;

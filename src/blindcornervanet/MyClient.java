@@ -46,7 +46,7 @@ public class MyClient extends Thread {
                 
                 clientSocket.send(sendPacket);
                 
-                Thread.sleep(1000);
+                Thread.sleep(100);
 //
 //                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length); 
 //

@@ -5,6 +5,7 @@
  */
 package blindcornervanet;
 
+import java.time.Clock;
 import java.util.ArrayList;
 
 /**
@@ -59,5 +60,8 @@ public class Car {
     }
     public int getPositionY(){
         return this.positionY;
+    }
+    public void printInfo(){
+        System.out.println("CarId: "+carID+" "+name+" "+positionX+" "+positionY);
     }
 }

@@ -14,10 +14,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.easyogg.OggClip;
 public class notiSound {
-    
+    private static OggClip ogg ;
     private static void playSound(String file) {
         try {
-            OggClip ogg = new OggClip(file);
+            ogg = new OggClip(file);
             ogg.play();
 //            ogg.loop();
 //            ogg.setBalance(-1.0f);
@@ -27,6 +27,9 @@ public class notiSound {
             Logger.getLogger(notiSound.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public static void stopAllNoti(){
+        ogg.stop();
+    }
     public static void playNoti1(){
         playSound("SFX/alert1.ogg");
     }
@@ -34,7 +37,7 @@ public class notiSound {
         playSound("SFX/alert2.ogg");
     }
     public static void playStartup(){
-        playSound("SFX/Carme.ogg");
+        playSound("SFX/Rhea.ogg");
     }
     public static void playVANET(){
         playSound("SFX/startup2.ogg");
