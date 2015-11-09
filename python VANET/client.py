@@ -19,24 +19,27 @@ sock = socket.socket(socket.AF_INET, # Internet
 # set up broadcast
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
-carID = "1"
-name = "RPi-1"
+carID = "2"
+name = "RPi-2"
 seqNumber = 1
-velocityX = random.randrange(0,4,1)
+velocityX = random.randrange(2,20,4)
 positionX = 0
-positionY = 250
-boundX = 500
+positionY = 290
+boundX = 550
 boundY = 500
 
 while(1):
-	velocityX = random.randrange(0,4,1)
-	positionX += velocityX
-	if positionX > boundX :
-		positionX = positionX-boundX
-	MESSAGE = "{0} {1} {2} {3} {4}".format(carID,name,seqNumber,positionX,positionY)
-	#print "Send Beacon ",len(MESSAGE), " bytes Message: ", MESSAGE
-	sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
-	seqNumber += 1
-	time.sleep(1)
-	
-	
+        velocityX = random.randrange(2,20,1)
+        positionX += velocityX
+        if positionX > boundX :
+                positionX = positionX-boundX
+                #seqNumber = 1
+                #ran = random.randrange(10,1000,1)
+                #carID = ""+str(ran)
+                #name = "RPi-"+str(ran)
+        MESSAGE = "{0} {1} {2} {3} {4}".format(carID,name,seqNumber,positionX,positionY)
+        print "Send Beacon ",len(MESSAGE), " bytes Message: ", MESSAGE
+        sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
+        seqNumber += 1
+        time.sleep(0.1)
+
