@@ -65,19 +65,26 @@ public class DrawPanel extends JPanel implements Runnable{
     @Override
     public void paintComponent(Graphics g){
         super.paintComponents(g);
+        //Get myCar Position
+        int x = myCar.getPositionX() ;
+        int y = myCar.getPositionY() ;
+        int r1 = 15 ;
+        int r2 = 10 ;
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
-        g2d.fillRect(0, 0, 500,500);
+        g2d.fillRect(-200, -200, 1000,1000);
         g2d.setColor(Color.GRAY);
-        g2d.fillRect(0, 0, 200, 200);
+        g2d.fillRect(0+250-x, -300-250+y, 200, 500);
         g2d.setColor(Color.GRAY);
-        g2d.fillRect(300, 0, 200, 200);
+        g2d.fillRect(300+250-x, -300-250+y, 200, 500);
+        //Down-right corner
         g2d.setColor(Color.GRAY);
-        g2d.fillRect(0, 300, 200, 200);
+        g2d.fillRect(0+250-x, 300-250+y, 200, 500);
+        //Down-right corner
         g2d.setColor(Color.GRAY);
-        g2d.fillRect(300, 300, 200, 200);
+        g2d.fillRect(300+250-x, 300-250+y, 200, 500);
         g2d.setColor(Color.blue);
-        g2d.fillOval(myCar.getPositionX(), 500 -myCar.getPositionY(), 10, 10);
+        g2d.fillOval(250-r1/2, 250-r1/2, r1, r1);
         
         //Draw enemy car :)
         neighborList.entrySet().stream().map((entrySet) -> {
@@ -90,16 +97,20 @@ public class DrawPanel extends JPanel implements Runnable{
             int dy = myCar.getPositionY() - value.getPositionY();
             double distance = Math.sqrt(dx*dx + dy*dy);
             boolean noti = false;
-            if(distance < 80.0){
+            if(distance < 150.0){
                 //alert.riseAlert();
-                noti = true ;
+                if(!value.isAlert()){
+                    noti = true ;
+                    value.riseAlert();
+                }
                 g2d.setColor(Color.red);
             }
                 else{
+                value.stopAlert();
                 g2d.setColor(Color.orange);
             }
             if(noti)SFX.notiSound.playNoti2();
-            g2d.fillOval(value.getPositionX(), 500 -value.getPositionY(), 10, 10);
+            g2d.fillOval(value.getPositionX()+250-x-r2/2, 500 -value.getPositionY()-250+y-r2/2, r2, r2);
         });
     }
     @Override

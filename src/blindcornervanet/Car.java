@@ -19,6 +19,7 @@ public class Car {
     protected int positionX;
     protected int positionY;
     protected int seqNumber;
+    protected boolean isAlert = false;
 
     public Car(String name, String carID, int seqNumber) {
         this.name = name;
@@ -63,5 +64,14 @@ public class Car {
     }
     public void printInfo(){
         System.out.println("CarId: "+carID+" "+name+" "+positionX+" "+positionY);
+    }
+    public boolean isAlert(){
+        return isAlert;
+    }
+    public void riseAlert(){
+        isAlert = true ;
+    }
+    public void stopAlert(){
+        isAlert = false ;
     }
 }
